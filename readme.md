@@ -5,7 +5,7 @@ Hash cracker written in rust because I was bored.
 
 ### Features
 - Threading to allow multiple attempets at the same time
-- 2 Hashing methods (Wow)
+- 5 Hashing methods (Wow)
 - Easy to use (Insane)
 
 
