@@ -2,6 +2,7 @@ use std::io::{self, Write, BufRead, BufReader};
 use std::fs::File;
 use std::process::exit;
 use std::{thread, time::Instant};
+use colored::Colorize;
 use sha2::{Digest, Sha256};
 use md5;
 
@@ -15,7 +16,7 @@ fn art() {
  / _, _/ /_/ (__  ) /_   / /___/ /  / /_/ / /__/ ,< /  __/ /    
 /_/ |_|\__,_/____/\__/   \____/_/   \__,_/\___/_/|_|\___/_/     
 
-"#)
+    "#);
 }
 
 
@@ -24,8 +25,7 @@ fn md5_method(hash: &str, word: &str, time: u64) {
     let digest = md5::compute(word.as_bytes());        
     let digest_str = format!("{:x}", digest);
     if digest_str == hash.to_string() {
-        println!("[!] Cracked password: {}\n[!] Took: {}s", word, time);
-        
+        println!("[{}] Cracked password: {}\n[{}] Took: {}s", "✔".green(), word,"✔".green(), time);
         exit(0);
     }
 }
@@ -37,7 +37,7 @@ fn sha256_method(hash: &str, word: &str, time: u64) {
     let hash_result = format!("{:x}", result);
 
     if hash_result == hash.to_string() {
-        println!("[!] Cracked password: {}\n[!] Took: {}s", word, time);
+        println!("[{}] Cracked password: {}\n[{}] Took: {}s", "✔".green(), word,"✔".green(), time);
         exit(0);
     }
 }
@@ -45,20 +45,20 @@ fn sha256_method(hash: &str, word: &str, time: u64) {
 
 fn main() {
     art();
-    print!("[?] Hash: ");
+    print!("[{}] Hash: ", "?".yellow());
     io::stdout().flush().unwrap();
     let mut hash = String::new();
     io::stdin().read_line(&mut hash).unwrap();
     let hash = hash.trim();
 
-    print!("[?] Wordlist: ");
+    print!("[{}] Wordlist: ", "?".yellow());
     io::stdout().flush().unwrap();
     let mut wordlist = String::new();
     io::stdin().read_line(&mut wordlist).unwrap();
     let wordlist = wordlist.trim();
 
 
-    print!("[?] Algorithm: ");
+    print!("[{}] Algorithm: ", "?".yellow());
     io::stdout().flush().unwrap();
     let mut algorithm = String::new();
     io::stdin().read_line(&mut algorithm).unwrap(); 
@@ -69,7 +69,7 @@ fn main() {
 
     let start = Instant::now();
 
-    println!("\n[>] Begun cracking\n");
+    println!("\n[{}] Begun cracking\n", ">".purple());
 
     for line in reader.lines() {
         let algorithm2 = algorithm.to_string();
@@ -83,7 +83,7 @@ fn main() {
             }
         });
     }
-    println!("[!] Failed to crack password");
+    println!("[{}] Failed to crack password", "✘".red());
         
 }
 
