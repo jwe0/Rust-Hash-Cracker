@@ -15,4 +15,6 @@ Hash cracker written in rust because I was bored.
 | ----------- | ----------- |
 | MD5         | ✅          |
 | SHA256      | ✅          |
-| Other sha   | 🔜          |
+| SHA224      | ✅          |
+| SHA384      | ✅          |
+| SHA512      | ✅          |
